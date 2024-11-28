@@ -7,10 +7,11 @@ export default function TodoGroup() {
 
   return (
     <div>
-      {todoItems &&
-        todoItems.map((todo, idx) => {
-          return <TodoItem todo={todo} key={todo.id + idx} />;
-        })}
+      {todoItems && todoItems.length > 0 && todoItems != []
+        ? todoItems.map((todo, idx) => {
+            return <TodoItem todo={todo} key={todo.id + idx} />;
+          })
+        : "There is no todo item!"}
     </div>
   );
 }
