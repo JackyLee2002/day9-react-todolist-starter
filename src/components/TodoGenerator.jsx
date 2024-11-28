@@ -18,7 +18,13 @@ export default function TodoGenerator() {
 
   return (
     <div>
-      <input maxLength={100} type="text" value={text} onChange={handleChange} />
+      <input
+        style={{ width: "250px" }}
+        maxLength={100}
+        type="text"
+        value={text}
+        onChange={handleChange}
+      />
       <button onClick={handleAdd}>add</button>
     </div>
   );

@@ -5,10 +5,14 @@ export const todoReducer = (state, action) => {
     case "ADD": {
       return [...state, {id: Date.now(), text: action.payload, done: false}];
     }
-    case "TOGGLE":
+    case "TOGGLE": {
       return state.map((todo) =>
         action.payload != todo.id ? todo : { ...todo, done: !todo.done }
       );
+    }
+    case "REMOVE":{
+      return state.filter((todo) => action.payload !== todo.id);
+    }
   }
   return state;
 };
