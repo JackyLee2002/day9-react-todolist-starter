@@ -9,13 +9,16 @@ export default function TodoGenerator() {
     setText(event.target.value);
   };
   const handleAdd = () => {
+    if (text.trim() === "") {
+      return;
+    }
     dispatch({ type: "ADD", payload: text });
     setText("");
   };
 
   return (
     <div>
-      <input type="text" value={text} onChange={handleChange} />
+      <input maxLength={100} type="text" value={text} onChange={handleChange} />
       <button onClick={handleAdd}>add</button>
     </div>
   );

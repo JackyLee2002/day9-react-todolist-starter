@@ -1,7 +1,4 @@
-export const initialState = [
-  {id: Date.now(), text: "the first todo", done: false},
-  {id: Date.now(), text: "the second todo", done: false},
-];
+export const initialState = [];
 
 export const todoReducer = (state, action) => {
   switch (action.type) {
