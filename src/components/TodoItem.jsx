@@ -1,16 +1,17 @@
 import "./TodoItem.css";
 import { TodoContext } from "../App";
 import { useContext } from "react";
+import { REMOVE_TODO_ITEM, TOGGLE_TODO_ITEM_DONE } from "../utils/todoActions";
 
 export default function TodoItem({ todo }) {
-  const { state, dispatch } = useContext(TodoContext);
+  const { dispatch } = useContext(TodoContext);
 
   const handleTodoDoneToggle = () => {
-    dispatch({ type: "TOGGLE", payload: todo.id });
+    dispatch({ type: TOGGLE_TODO_ITEM_DONE, payload: todo.id });
   };
 
   const handleTodoRemove = () => {
-    dispatch({ type: "REMOVE", payload: todo.id });
+    dispatch({ type: REMOVE_TODO_ITEM, payload: todo.id });
   };
 
   return (
