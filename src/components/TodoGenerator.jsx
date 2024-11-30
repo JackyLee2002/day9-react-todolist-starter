@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { TODOACTIONS } from "../context/todoReducer";
 import { TodoContext } from "../App";
 
 export default function TodoGenerator() {
@@ -12,7 +13,7 @@ export default function TodoGenerator() {
     if (text.trim() === "") {
       return;
     }
-    dispatch({ type: "ADD", payload: text });
+    dispatch({ type: TODOACTIONS.ADD, payload: text });
     setText("");
   };
 

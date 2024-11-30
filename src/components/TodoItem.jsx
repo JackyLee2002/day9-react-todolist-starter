@@ -1,9 +1,10 @@
 import "./TodoItem.css";
 import { TodoContext } from "../App";
-import { editTodo } from "../api/todos";
 import { useContext, useState } from "react";
 import { Modal, Input, Button } from "antd";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
+import { TODOACTIONS } from "../context/todoReducer";
+import { editTodo, deleteTodo } from "../api/todos";
 
 export default function TodoItem({ todo }) {
   const { dispatch } = useContext(TodoContext);
@@ -21,9 +22,11 @@ export default function TodoItem({ todo }) {
       return;
     }
     setLoadingEdit(true);
+    const updatedTodoItem = { ...todo, text: editTodoText };
+    const returnedTodoFromAPI = await editTodo(updatedTodoItem);
     dispatch({
-      type: "EDIT",
-      payload: await editTodo({ ...todo, text: editTodoText }),
+      type: TODOACTIONS.EDIT,
+      payload: returnedTodoFromAPI,
     });
     setLoadingEdit(false);
     setIsModalOpen(false);
@@ -32,12 +35,14 @@ export default function TodoItem({ todo }) {
     setIsModalOpen(false);
   };
 
-  const handleTodoDoneToggle = () => {
-    dispatch({ type: "TOGGLE", payload: todo.id });
+  const handleTodoDoneToggle = async () => {
+    await editTodo({ ...todo, done: !todo.done });
+    dispatch({ type: TODOACTIONS.TOGGLE_DONE, payload: todo.id });
   };
 
-  const handleTodoRemove = () => {
-    dispatch({ type: "REMOVE", payload: todo.id });
+  const handleTodoRemove = async () => {
+    await deleteTodo(todo);
+    dispatch({ type: TODOACTIONS.REMOVE, payload: todo.id });
   };
 
   const onEditChange = (event) => {
