@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { TODOACTIONS } from "../context/todoReducer";
 import { TodoContext } from "../App";
+import { addTodo } from "../api/todos";
 
 export default function TodoGenerator() {
   const [text, setText] = useState("");
@@ -9,11 +10,12 @@ export default function TodoGenerator() {
   const handleChange = (event) => {
     setText(event.target.value);
   };
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (text.trim() === "") {
       return;
     }
-    dispatch({ type: TODOACTIONS.ADD, payload: text });
+    const todo = await addTodo(text);
+    dispatch({ type: TODOACTIONS.ADD, payload: todo });
     setText("");
   };
 

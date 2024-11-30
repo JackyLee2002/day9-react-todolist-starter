@@ -12,7 +12,7 @@ export const TODOACTIONS = {
 export const todoReducer = (state, action) => {
   switch (action.type) {
     case TODOACTIONS.ADD: {
-      return [...state, { id: Date.now(), text: action.payload, done: false }];
+      return [...state, action.payload];
     }
     case TODOACTIONS.TOGGLE_DONE: {
       return state.map((todo) =>
