@@ -8,7 +8,6 @@ const TodoList = () => {
       This is the TodoList Component.
       <TodoGroup />
       <TodoGenerator />
-      <Link to="/done">Check your done list</Link>
     </div>
   );
 };
