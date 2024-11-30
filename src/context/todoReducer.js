@@ -16,6 +16,11 @@ export const todoReducer = (state, action) => {
     case "INITIALIZE": {
       return action.payload;
     }
+    case "EDIT": {
+      return state.map((todo) =>
+        action.payload.id !== todo.id ? todo : action.payload
+      );
+    }
     default: {
       return state;
     }

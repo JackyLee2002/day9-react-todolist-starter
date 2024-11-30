@@ -4,8 +4,10 @@ import TodoGroup from "./TodoGroup";
 import { TodoContext } from "../App";
 import { fetchTodos } from "../api/todos";
 
+
 const TodoList = () => {
   const { dispatch } = useContext(TodoContext);
+
 
   useEffect(() => {
     fetchTodos().then((todos) => {
