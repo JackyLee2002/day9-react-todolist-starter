@@ -9,10 +9,8 @@ export default function TodoGroup() {
   const { state: todoItems } = useContext(TodoContext);
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentItems, setCurrentItems] = useState([]);
 
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const endIndex = startIndex + PAGE_SIZE;
-  const currentItems = todoItems.slice(startIndex, endIndex);
   const percentage =
     (todoItems.filter((todo) => todo.done).length / todoItems.length) * 100;
 
@@ -20,12 +18,16 @@ export default function TodoGroup() {
     setCurrentPage(page);
   };
 
-  // useeffect to check if state is updated, check if the current page's content is empty, if it is, go to the previous page
   useEffect(() => {
-    if (currentItems.length === 0) {
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
+    const items = todoItems.slice(startIndex, endIndex);
+    setCurrentItems(items);
+
+    if (items.length === 0 && currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
     }
-  }, [todoItems]);
+  }, [todoItems, currentPage]);
 
   return (
     <div>
@@ -38,11 +40,11 @@ export default function TodoGroup() {
           percent={percentage.toPrecision(4)}
         />
       </Flex>
-      {currentItems && currentItems.length > 0 && currentItems != []
+      {currentItems.length > 0
         ? currentItems.map((todo, idx) => {
             return <TodoItem todo={todo} key={todo.id + idx} />;
           })
-        : "There is no todo item!"}
+        : null}
       <Pagination
         style={{
           padding: "10px 0px",
