@@ -44,7 +44,7 @@ export default function TodoGroup() {
         ? currentItems.map((todo, idx) => {
             return <TodoItem todo={todo} key={todo.id + idx} />;
           })
-        : null}
+        : "There is no todo item!"}
       <Pagination
         style={{
           padding: "10px 0px",
